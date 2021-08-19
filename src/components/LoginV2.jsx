@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React, { useRef, useState } from 'react';
 
 export default function Login (props) {
     const formsRef = useRef();
@@ -29,80 +29,50 @@ export default function Login (props) {
 }
 
 function LoginForm (props) {
-    const usernameFieldRef = useRef();
-    const passwordFieldRef = useRef();
+    const { username, setUsermame} = useState('');
+    const { password, setPassword} = useState('');
+
 
     const handleValidate = () => {
-        const username = usernameFieldRef.current,
-            password = passwordFieldRef.current;
-
-        let valid = false;
-
-        if('value' in username && username.value) {
-            valid = true;
-        }
-
-        if(password.value) {
-            valid = valid && true;
-        } else {
-            valid = false;
-        }
-
-        return valid;
+        return (username && password)
     }
 
     return (
         <>
             <div className="form-field">
                 <label>Username <sup style={{color:'red'}}>*</sup></label>
-                <input ref={usernameFieldRef} type="text" name="name" autoFocus/>
+                <input type="text" value={username} onChange={(event) => { setUsermame(event.target.value) }} autoFocus/>
             </div>
             <div className="form-field">
                 <label>Password <sup style={{color:'red'}}>*</sup></label>
-                <input ref={passwordFieldRef} type="password" name="room"/>
+                <input type="password" value={password} onChange={(event) => { setPassword(event.target.value) }}/>
             </div>
         </>
     )
 }
 
 function SignInForm (props) {
-    const usernameFieldRef = useRef();
-    const passwordFieldRef = useRef();
-    const confirmPasswordFieldRef = useRef();
+    const { username, setUsermame} = useState('');
+    const { password, setPassword} = useState('');
+    const { confirmPassword, setConfirmPassword} = useState('');
 
     const handleValidate = () => {
-        const username = usernameFieldRef.current,
-            password = passwordFieldRef.current,
-            confirmPassword = confirmPasswordFieldRef.current;
-
-        let valid = false;
-
-        if('value' in username && username.value) {
-            valid = true;
-        }
-
-        if((password.value && confirmPassword.value) && (password.value === confirmPassword.value)) {
-            valid = valid && true;
-        } else {
-            valid = false;
-        }
-
-        return valid;
+        return (username && password && password == confirmPassword);
     }
 
     return (
         <>
             <div className="form-field">
                 <label>Username <sup style={{color:'red'}}>*</sup></label>
-                <input ref={usernameFieldRef} type="text" name="name" autoFocus/>
+                <input type="text" value={username} onChange={(event) => { setUsermame(event.target.value) }} autoFocus/>
             </div>
             <div className="form-field">
                 <label>Password <sup style={{color:'red'}}>*</sup></label>
-                <input ref={passwordFieldRef} type="password" name="room"/>
+                <input type="password" value={password} onChange={(event) => { setPassword(event.target.value) }}/>
             </div>
             <div className="form-field">
                 <label>Confirm Password <sup style={{color:'red'}}>*</sup></label>
-                <input ref={confirmPasswordFieldRef} type="password" name="room"/>
+                <input type="password" value={confirmPassword} onChange={(event) => { setConfirmPassword(event.target.value) }}/>
             </div>
         </>
     )
